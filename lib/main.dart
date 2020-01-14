@@ -52,8 +52,8 @@ class MyApp extends StatelessWidget {
         builder: (BuildContext context,AsyncSnapshot<String> snapshot){
           // print(snapshot.data);
           return snapshot.hasData
-          ? Homepg() :
-          LoginPage();
+          ? LoginPage() :
+          Homepg();
         },
       ),
 
@@ -215,24 +215,16 @@ String query ="""
             Center(
               child:              
               Icon(Icons.favorite,color: Colors.red[700],size:40),
-            )            
-            //   Center(
-            //   child: Row(children: <Widget>[
-            //     Icon(Icons.favorite,color: Colors.red[700],size:40),
-            //     Text("Bebo"),
-            //     Icon(Icons.favorite,color: Colors.red[700],size:40),
-            //   ],),
-            // ),
+            )
              
-
-            
-          
           ),
          body: Query(
            
-           options: QueryOptions(document: query),
+           options: QueryOptions(document: query,),
             builder: (QueryResult result,{VoidCallback refetch}){
+              // print(result);
               if(result.loading){
+                print("loading....");
                 return Center(child: CircularProgressIndicator());
               }
               
@@ -246,9 +238,10 @@ String query ="""
                   String date = result.data["allContext"]["edges"][index]["node"]["createdDate"];
                   List<dynamic> comments = result.data["allContext"]["edges"][index]["node"]["comments"]["edges"];
                   img = "http://mybebo.pythonanywhere.com/media/"+img;
+                  print("sdfdsf{}");
+                  print(result);
                   String endCursor = result.data["allContext"]["pageInfo"]["endCursor"];
                   bool hasNextPage = result.data["allContext"]["pageInfo"]["hasNextPage"];
-
                 return
                 
                 Padding(
